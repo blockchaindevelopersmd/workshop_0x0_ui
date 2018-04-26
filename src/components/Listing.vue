@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import contractsAddresses from "../contracts.json";
+
 export default {
   name: 'Listing',
   data() {
