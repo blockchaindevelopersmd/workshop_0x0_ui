@@ -1,43 +1,42 @@
-import contract from "truffle-contract";
-import Web3 from "web3";
-import Stage1 from "../../../artifacts/Stage1.json";
-import Stage2 from "../../../artifacts/Stage2.json";
-import addresses from "../../../contracts.json";
+import contract from 'truffle-contract';
+import Web3 from 'web3';
+import Stage1Artifact from '../../../artifacts/Stage1.json';
+import Stage2Artifact from '../../../artifacts/Stage2.json';
+import addresses from '../../../contracts.json';
+import Voting from './voting';
 
+/**
+ * In hardcode we trust
+ */
 export default class Ethereum {
-  constructor(Contract) {
-    this.Contract = Contract;
-  }
-
   static async contracts() {
     const contracts = [];
-    
-    for (let address of addresses) {
-      contracts.push({
-        address,
-        Stage1: await this.Stage1(address),
-        Stage2: await this.Stage2(address),
-      });
+
+    for (const address of addresses) {
+      const Stage1 = await this.loadContract(Stage1Artifact, address);
+      const Stage2 = await this.loadContract(Stage2Artifact, address);
+
+      const voting = new Voting({ address, Stage1, Stage2 });
+
+      contracts.push(await voting.init());
     }
 
     return contracts;
   }
 
-  static async Stage1(address) {
-    return this.contract(Stage1).at(address);
-  }
-
-  static async Stage2(address) {
-    return this.contract(Stage2).at(address);
-  }
-
-  static contract(artifact, provider = null) {
-    provider = provider || new Web3.providers.HttpProvider("https://ropsten.infura.io/metamask");
-
+  static async loadContract(artifact, address, provider = null) {
     const Contract = contract(artifact);
 
-    Contract.setProvider(provider);
+    const contractProvider = provider || new Web3.providers.HttpProvider(
+      'https://ropsten.infura.io/metamask',
+    );
 
-    return new this(Contract);
+    if (!contractProvider.sendAsync && contractProvider.send) {
+      contractProvider.sendAsync = contractProvider.send.bind(contractProvider);
+    }
+
+    Contract.setProvider(contractProvider);
+
+    return Contract.at(address);
   }
 }
