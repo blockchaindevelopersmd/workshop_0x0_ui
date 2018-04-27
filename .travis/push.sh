@@ -2,7 +2,7 @@
 
 EMAIL="alexander.moldova@gmail.com"
 USERNAME="AlexanderC"
-REMOTE="https://${USERNAME}:${GH_TOKEN}@github.com/AlexanderC/nakla.fun.git"
+REMOTE="https://${USERNAME}:${GH_TOKEN}@github.com/blockchaindevelopersmd/workshop_0x0_ui"
 SKIP_MARK="[skip ci]"
 
 setup_git() {
