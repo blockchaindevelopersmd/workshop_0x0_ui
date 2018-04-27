@@ -10,10 +10,12 @@
           <span class="md-title">BDM- Workshop 0x0</span>
 
           <div class="md-toolbar-section-end">
-            <md-button class="md-primary">
-              <md-icon>add_circle</md-icon>
-              <span>Add Your Contract</span>
-            </md-button>
+            <a target="_blank" href="https://github.com/blockchaindevelopersmd/workshop_0x0_ui/blob/master/src/contracts.json">
+              <md-button class="md-primary">
+                <md-icon>add_circle</md-icon>
+                <span>Add Your Contract</span>
+              </md-button>
+            </a>   
           </div>
         </div>
       </md-app-toolbar>
