@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 EMAIL="alexander.moldova@gmail.com"
 USERNAME="AlexanderC"

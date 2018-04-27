@@ -11,6 +11,9 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
+# set token for Travis
+npm run gh-token -- "your github token" "your travis token"
+
 # build for production with minification
 npm run build
 
